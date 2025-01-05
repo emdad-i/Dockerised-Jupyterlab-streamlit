@@ -1,8 +1,8 @@
 # Dockerised Jupyterlab Streamlit
 
-Allows to quickly run up a dockerised Jupyterlab with streamlit port `8501` exposed to view development and bridged network to allow installation of new packages via pip repository.
-To get users up and running with a clean python (from your existing installation) and an IDE for personal Data Science development.
-Storage mapping `documents/jupyterlab_data` from your machine to `work` directory in jupyterlab
+Allows to quickly run up a dockerised Jupyterlab with streamlit port `8501` exposed to view development and bridged network to allow installation of new packages via pip repository.<br>
+To get users up and running with a clean python (from your existing installation) and an IDE for personal Data Science development.<br>
+Storage mapping `documents/jupyterlab_data` from your machine to `work` directory in jupyterlab.
 
 ## Requirement
 - Docker installed on your machine
