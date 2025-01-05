@@ -1,0 +1,22 @@
+services:
+  jupyterlab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jupyterlab
+    ports:
+      - "8888:8888"  # Expose JupyterLab
+      - "8501:8501"  # Expose Streamlit
+    volumes:
+      - "${HOME}/Documents/jupyterlab_data:/home/jovyan/work"  # Map JupyterLab data folder in user Documents
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    command: >
+      start-notebook.sh --NotebookApp.token='' &&
+      bash -c "while true; do sleep 1000; done"
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
+    driver: bridge
