@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   jupyterlab:
     build:
@@ -5,15 +7,18 @@ services:
       dockerfile: Dockerfile
     container_name: jupyterlab
     ports:
-      - "8888:8888"  # Expose JupyterLab
-      - "8501:8501"  # Expose Streamlit
+      - "8888:8888"  # JupyterLab
+      - "8501:8501"  # Streamlit
     volumes:
-      - "${HOME}/Documents/jupyterlab_data:/home/jovyan/work"  # Map JupyterLab data folder in user Documents
+      # Updated to match the WORKDIR /app used in the new Dockerfile
+      - "${HOME}/Documents/jupyterlab_data:/app"
     environment:
-      - JUPYTER_ENABLE_LAB=yes
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    # Updated command to run both services in a slim environment
     command: >
-      start-notebook.sh --NotebookApp.token='' &&
-      bash -c "while true; do sleep 1000; done"
+      sh -c "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' & 
+             streamlit run app.py --server.port=8501 --server.address=0.0.0.0"
     networks:
       - dev_network
 
