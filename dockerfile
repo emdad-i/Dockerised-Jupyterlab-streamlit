@@ -17,6 +17,11 @@ RUN pip install --no-cache-dir jupyterlab streamlit
 
 COPY . .
 
+# Create a blank app.py if it doesn't exist so Streamlit doesn't crash
+RUN if [ ! -f app.py ]; then \
+    echo "import streamlit as st\nst.write('Welcome! Upload your data or edit app.py to begin.')" > app.py; \
+    fi
+
 EXPOSE 8888 8501
 
 CMD ["sh", "-c", "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root & streamlit run /app/app.py --server.port=8501 --server.address=0.0.0.0"]
