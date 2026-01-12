@@ -24,4 +24,4 @@ RUN if [ ! -f app.py ]; then \
 
 EXPOSE 8888 8501
 
-CMD ["sh", "-c", "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root & streamlit run /app/app.py --server.port=8501 --server.address=0.0.0.0"]
+CMD ["sh", "-c", "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password='' & streamlit run /app/app.py --server.port=8501 --server.address=0.0.0.0"]
